@@ -19,8 +19,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         String videoPath = "android.resource://" + requireContext().getPackageName() + "/" + R.raw.vd;
-
-
         return view;
     }
 }

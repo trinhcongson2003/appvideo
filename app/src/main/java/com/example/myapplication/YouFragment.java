@@ -23,7 +23,7 @@ public class YouFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_you, container, false);
 
         // Tìm kiếm VideoView trong giao diện
-        videoView = rootView.findViewById(R.id.videoView);
+        //videoView = rootView.findViewById(R.id.videoView);
 
         // Đặt đường dẫn của video mặc định
         String videoPath = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.vd1;
