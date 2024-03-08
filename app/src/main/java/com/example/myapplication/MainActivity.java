@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drlayout = findViewById(R.id.layoutdr);
         btngview = findViewById(R.id.btnav);
         btngview.setBackground(null);
+        //Sơn béo cậu bé thời gian
         btngview.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
