@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".HomeFragment">
+
+   <FrameLayout
+       android:layout_marginTop="50dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <VideoView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/video"/>
+   </FrameLayout>
+
+    <TextView
+        android:layout_marginTop="270dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mix - Không Calo (TVT Remix)"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_marginTop="288dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tina Ho, Tăng Duy Tân, ZIN Media, and more"
+        android:textColor="@color/black"/>
+
+</FrameLayout>

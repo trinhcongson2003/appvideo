@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nuthome"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"/>
+
+    <item
+        android:id="@+id/nutslideshow"
+        android:title="Shorts"
+        android:icon="@drawable/baseline_slideshow_24"/>
+
+    <item
+        android:title=""
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/nutsubrices"
+        android:title="Subscriptions"
+        android:icon="@drawable/baseline_subscriptions_24"/>
+
+    <item
+        android:id="@+id/nuthuman"
+        android:title="You"
+        android:icon="@drawable/baseline_boy_24"/>
+</menu>

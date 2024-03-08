@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".YouFragment"
+    android:layout_marginTop="66dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_screenshot_monitor_24"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"/>
+
+        <!-- Icon 2 -->
+        <ImageView
+            android:id="@+id/icon2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_doorbell_24"
+            android:layout_toLeftOf="@id/icon1"
+            android:layout_alignTop="@id/icon1"
+            android:layout_marginRight="16dp"/>
+
+        <!-- Icon 3 -->
+        <ImageView
+            android:id="@+id/icon3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_youtube_searched_for_24"
+            android:layout_toLeftOf="@id/icon2"
+            android:layout_alignTop="@id/icon2"
+            android:layout_marginRight="16dp"/>
+
+        <ImageView
+            android:id="@+id/icon4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_settings_24"
+            android:layout_toLeftOf="@id/icon3"
+            android:layout_alignTop="@id/icon3"
+            android:layout_marginRight="16dp"/>
+
+        <!-- LinearLayout for VideoView and TextView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/icon1"
+            android:layout_marginTop="170dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:layout_marginTop="-30dp"
+                android:textColor="@color/black"
+                android:id="@+id/additionalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cocacola 4k HDR 120FPS DOLBY VISION END TASK"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/icon1"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true">
+
+            <!-- TextView -->
+            <TextView
+                android:id="@+id/videoWatchedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Video đã xem"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="30dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/gram">
+                <ImageView
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_youtube_searched_for_24"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp"/>
+
+                <EditText
+                    android:layout_marginTop="12dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Tìm kiếm video đã xem"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/historyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lịch sử hôm nay"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="20dp"
+               />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/icon5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"/>
+
+</FrameLayout>
