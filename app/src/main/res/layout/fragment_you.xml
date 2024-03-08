@@ -58,20 +58,11 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp">
 
-            <VideoView
-                android:id="@+id/videoView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_marginTop="-30dp"
-                android:textColor="@color/black"
-                android:id="@+id/additionalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cocacola 4k HDR 120FPS DOLBY VISION END TASK"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"/>
+            </ListView>
         </LinearLayout>
 
         <LinearLayout

@@ -4,30 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".HomeFragment">
-
-   <FrameLayout
-       android:layout_marginTop="50dp"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-
-       <VideoView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/video"/>
-   </FrameLayout>
-
-    <TextView
-        android:layout_marginTop="270dp"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mix - Không Calo (TVT Remix)"
-        android:textColor="@color/black"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_marginTop="288dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tina Ho, Tăng Duy Tân, ZIN Media, and more"
-        android:textColor="@color/black"/>
+    </ListView>
 
 </FrameLayout>
