@@ -6,86 +6,111 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PlayVideoActivity">
-    <RelativeLayout
-        android:id="@+id/layoutXemVideo"
-        android:layout_width="match_parent"
-        android:layout_height="250dp">
-        <VideoView
-            android:id="@+id/mainVideo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
         <RelativeLayout
-            android:id="@+id/layoutChucNang"
+            android:id="@+id/layoutXemVideo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <RelativeLayout
+            android:layout_height="230dp">
+            <VideoView
+                android:id="@+id/video"
                 android:layout_width="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_height="wrap_content">
-                <ImageButton
-                    android:id="@+id/videoPrev"
+                android:layout_height="match_parent"/>
+            <RelativeLayout
+                android:id="@+id/layoutChucNang"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+                    <ImageButton
+                        android:id="@+id/videoPrev"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_prev"/>
+                    <ImageButton
+                        android:id="@+id/pause_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/ic_pause"/>
+                    <ImageButton
+                        android:id="@+id/videoNext"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_next"/>
+                </RelativeLayout>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_next"/>
-                <ImageButton
-                    android:id="@+id/pause_play"
-                    android:layout_width="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="10dp">
+                    <TextView
+                        android:id="@+id/thoiGianHienTai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:text="00:00"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:text="/"/>
+                    <TextView
+                        android:id="@+id/tongThoiGian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:text="60:00"/>
+                </LinearLayout>
+                <SeekBar
+                    android:id="@+id/seekBarVideo"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/ic_pause"/>
-                <ImageButton
-                    android:id="@+id/videoNext"
-                    android:layout_width="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_next"/>
+                    android:layout_alignParentBottom="true"
+                    android:progressTint="#ff030f"
+                    android:thumbTint="#ff030f"
+                    android:progress="0"
+                    android:max="100"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginBottom="-5dp" />
+                <ImageButton
+                    android:id="@+id/thu_phong"
+                    android:layout_width="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_phong"/>
             </RelativeLayout>
-            <LinearLayout
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameVideo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="10dp">
-                <TextView
-                    android:id="@+id/thoiGianHienTai"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="00:00"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/"/>
-                <TextView
-                    android:id="@+id/tongThoiGian"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="60:00"/>
-            </LinearLayout>
-            <SeekBar
-                android:id="@+id/seekBarVideo"
-                android:layout_width="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:text="Name Video"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:progressTint="#ff030f"
-                android:thumbTint="#ff030f"
-                android:progress="0"
-                android:max="100"
-                android:layout_marginStart="0dp"
-                android:layout_marginBottom="-5dp" />
-            <ImageButton
-                android:id="@+id/thu_phong"
-                android:layout_width="30dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_phong"/>
-        </RelativeLayout>
-    </RelativeLayout>
-    <ScrollView
-        android:id="@+id/layoutThongTin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ScrollView>
-
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:text="Xem thêm video"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener {
-    Database database;
     ArrayList<Video> arrayVideo;
     HomeAdapter homeAdapter;
     View view;
@@ -41,17 +40,16 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         super.onViewCreated(view, savedInstanceState);
         arrayVideo = new ArrayList<>();
         homeAdapter = new HomeAdapter(getContext(),R.layout.row_home, arrayVideo);
-        //Database
-        database = new Database(getActivity(), "VideoPlayer.sql", null, 1);
+        //MainActivity.database
         //Tạo bảng video
-        database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
-//        database.QueryData("DROP  TABLE IF EXISTS Video");
+        MainActivity.database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
+//        MainActivity.database.QueryData("DROP  TABLE IF EXISTS Video");
         //Chèn CSDL vào bảng Video
-        database.QueryData("INSERT INTO Video VALUES(null,'Rank 1 Kata : STOMRING KR Challenger - Engsub','R.raw.vd1','@drawable/katadeath','0','612000','0')");
-        database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng Talon is Pretty Good - Engsub','R.raw.vd1','@drawable/beifeng2','0','642000','0')");
-        database.QueryData("INSERT INTO Video VALUES(null,'YeDaoShen : INSANE 1HP SURVIVE','R.raw.vd1','@drawable/talonenduring','0','556000','0')");
-        database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng : Did You Know About This Qiyana ONE SHOT Combos ?','R.raw.vd1','@drawable/beifeng1','0','516000','0')");
-        database.QueryData("INSERT INTO Video VALUES(null,'When Rank 1 Katarina meet Yasuo - Engsub','R.raw.vd1','@drawable/rank1kata','0','593000','0')");
+        MainActivity.database.QueryData("INSERT INTO Video VALUES(null,'Rank 1 Kata : STOMRING KR Challenger - Engsub','R.raw.vd1','@drawable/katadeath','0','612000','0')");
+        MainActivity.database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng Talon is Pretty Good - Engsub','R.raw.vd1','@drawable/beifeng2','0','642000','0')");
+        MainActivity.database.QueryData("INSERT INTO Video VALUES(null,'YeDaoShen : INSANE 1HP SURVIVE','R.raw.vd1','@drawable/talonenduring','0','556000','0')");
+        MainActivity.database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng : Did You Know About This Qiyana ONE SHOT Combos ?','R.raw.vd1','@drawable/beifeng1','0','516000','0')");
+        MainActivity.database.QueryData("INSERT INTO Video VALUES(null,'When Rank 1 Katarina meet Yasuo - Engsub','R.raw.vd1','@drawable/rank1kata','0','593000','0')");
         //
         listView = (ListView) view.findViewById(R.id.listVidHome);
         listView.setAdapter(homeAdapter);
@@ -60,7 +58,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
 
     public void GetDataVideo(){
         arrayVideo.clear();
-        Cursor dataVideo = database.GetData("SELECT * FROM Video");
+        Cursor dataVideo = MainActivity.database.GetData("SELECT * FROM Video");
         while (dataVideo.moveToNext()){
             int id = dataVideo.getInt(0);
             String ten = dataVideo.getString(1);

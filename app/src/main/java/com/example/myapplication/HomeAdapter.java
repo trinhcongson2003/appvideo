@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,16 @@ public class HomeAdapter extends BaseAdapter {
         holder.txtTongTG.setText(duration);
         holder.txtTenVid.setText(video.getTenVD());
         holder.imgVid.setImageResource(video.getThumbnail());
+
+        holder.imgVid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.listVideoPlay.clear();
+                Intent intent=new Intent(context,PlayVideoActivity.class);
+                PlayVideoActivity.videodata=video;
+                context.startActivity(intent);
+            }
+        });
         return view;
     }
 }

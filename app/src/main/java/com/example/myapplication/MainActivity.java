@@ -9,14 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.widget.Toolbar;
-
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,18 +30,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentManager frgmanager;
     Toolbar toolbar;
     FloatingActionButton fab;
+    public static String videoPath = "android.resource://com.example.myapplication/";
+    public static ArrayList<Integer> listVideoPlay;
+    public static Database database;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        database = new Database(getApplicationContext(), "VideoPlayer.sql", null, 1);
+
+
+        listVideoPlay=new ArrayList<Integer>();
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drlayout = findViewById(R.id.layoutdr);
         btngview = findViewById(R.id.btnav);
         btngview.setBackground(null);
+        //Sơn béo cậu bé thời gian
         btngview.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
