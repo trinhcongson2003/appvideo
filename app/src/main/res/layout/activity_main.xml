@@ -22,6 +22,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
         <FrameLayout
+            android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/frm"/>

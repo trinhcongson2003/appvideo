@@ -21,6 +21,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drlayout;
@@ -28,12 +30,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentManager frgmanager;
     Toolbar toolbar;
     FloatingActionButton fab;
+    public static String videoPath = "android.resource://com.example.myapplication/";
+    public static ArrayList<Integer> listVideoPlay;
+    public static Database database;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        database = new Database(getApplicationContext(), "VideoPlayer.sql", null, 1);
+
+
+        listVideoPlay=new ArrayList<Integer>();
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
