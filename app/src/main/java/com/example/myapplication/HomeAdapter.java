@@ -61,9 +61,10 @@ public class HomeAdapter extends BaseAdapter {
         holder.imgVid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.listVideoPlay.clear();
                 Intent intent=new Intent(context,PlayVideoActivity.class);
                 PlayVideoActivity.videodata=video;
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );//Ket thuc Acvitivy cu va mo Activity moi
                 context.startActivity(intent);
             }
         });

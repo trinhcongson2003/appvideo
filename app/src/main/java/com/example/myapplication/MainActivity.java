@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     FloatingActionButton fab;
     public static String videoPath = "android.resource://com.example.myapplication/";
-    public static ArrayList<Integer> listVideoPlay;
+    public static ArrayList<Video> listVideoPlay;
     public static Database database;
 
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database = new Database(getApplicationContext(), "VideoPlayer.sql", null, 1);
 
 
-        listVideoPlay=new ArrayList<Integer>();
+        listVideoPlay=new ArrayList<Video>();
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
