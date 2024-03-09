@@ -2,27 +2,27 @@ package com.example.myapplication;
 
 public class Video {
 
-    private String IdVD;
+    private int IdVD;
     private String TenVD;
     private String VDURL;
-    private String Thumbnail;
+    private int Thumbnail;
     private int Timeline;
     private int TongTG;
     private int IdHistory;
-    public Video(String idVD, String tenVD, String VDURL, String thumbnail, int timeline, int tongTG, int idHistory) {
+    public Video(int idVD, String tenVD, String VDurl, int thumbnail, int timeline, int tongTG, int idHistory) {
         IdVD = idVD;
         TenVD = tenVD;
-        this.VDURL = VDURL;
+        this.VDURL = VDurl;
         Thumbnail = thumbnail;
         Timeline = timeline;
         TongTG = tongTG;
         IdHistory = idHistory;
     }
-    public String getIdVD() {
+    public int getIdVD() {
         return IdVD;
     }
 
-    public void setIdVD(String idVD) {
+    public void setIdVD(int idVD) {
         IdVD = idVD;
     }
 
@@ -42,11 +42,11 @@ public class Video {
         this.VDURL = VDURL;
     }
 
-    public String getThumbnail() {
+    public int getThumbnail() {
         return Thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(int thumbnail) {
         Thumbnail = thumbnail;
     }
 
