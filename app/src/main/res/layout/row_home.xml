@@ -33,6 +33,6 @@
         android:text="When Rank 1 Katarina meet Yasuo - Engsub"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:textSize="1611dp"/>
+        android:textSize="16dp"/>
 
 </RelativeLayout>
