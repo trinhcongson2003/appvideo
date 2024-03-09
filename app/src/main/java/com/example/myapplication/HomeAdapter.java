@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class HomeAdapter extends BaseAdapter {
-    private MainActivity mainActivity;
-    private HomeFragment context;
+    private Context context;
     private int layout;
     ArrayList<Video> VideoList;
-    public HomeAdapter(HomeFragment context, int layout, ArrayList<Video> videoList) {
+    public HomeAdapter(Context context, int layout, ArrayList<Video> videoList) {
         this.context = context;
         this.layout = layout;
         this.VideoList = videoList;
@@ -42,7 +41,7 @@ public class HomeAdapter extends BaseAdapter {
         ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) mainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(layout, null);
             holder.txtTongTG = view.findViewById(R.id.vidTongTG);
             holder.txtTenVid = view.findViewById(R.id.vidName);
