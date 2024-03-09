@@ -1,64 +1,54 @@
 package com.example.myapplication;
 
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.VideoView;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+import java.util.ArrayList;
+import java.util.Random;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ShortsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ShortsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ShortsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ShortsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ShortsFragment newInstance(String param1, String param2) {
-        ShortsFragment fragment = new ShortsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private ArrayList<DataHander> dataHanders = new ArrayList<>();
+    ViewPager2 viewPager2;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shorts, container, false);
+        view = inflater.inflate(R.layout.shorts_main, container, false);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        DataHander data1 = new DataHander("title 1", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4");
+        DataHander data2 = new DataHander("this is title 2", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4");
+        DataHander data3 = new DataHander("this is title 3", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4");
+        DataHander data4 = new DataHander("this is title 4", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4");
+        DataHander data5 = new DataHander("this is title 5", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4");
+        DataHander data6 = new DataHander("this is title 6", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4");
+
+        dataHanders.add(data1);
+        dataHanders.add(data2);
+        dataHanders.add(data3);
+        dataHanders.add(data4);
+        dataHanders.add(data5);
+        dataHanders.add(data6);
+
+        viewPager2 = view.findViewById(R.id.vpager);
+        ShortsAdapter pagerAdapter = new ShortsAdapter(dataHanders, this);
+        viewPager2.setAdapter(pagerAdapter);
+        return view;
     }
+
 }
+
+
+
