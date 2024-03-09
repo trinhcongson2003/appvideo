@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener {
-    HomeFragment homeFragment = new HomeFragment();
     Database database;
     ArrayList<Video> arrayVideo;
     HomeAdapter homeAdapter;
@@ -41,7 +40,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         arrayVideo = new ArrayList<>();
-        homeAdapter = new HomeAdapter(homeFragment,R.layout.row_home, arrayVideo);
+        homeAdapter = new HomeAdapter(this,R.layout.row_home, arrayVideo);
         //Database
         database = new Database(getActivity(), "VideoPlayer.sql", null, 1);
         //Tạo bảng video
