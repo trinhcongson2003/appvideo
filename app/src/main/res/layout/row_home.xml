@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/vidThumbnail"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="180dp"
         android:src="@drawable/rank1kata"
         android:scaleType="centerCrop"/>
 
@@ -20,6 +20,7 @@
         android:background="@color/black"
         android:padding="5dp"
         android:text="00:00"
+        android:textSize="13dp"
         android:textColor="#ffffff"
         android:textStyle="bold" />
 
@@ -35,6 +36,6 @@
         android:text="When Rank 1 Katarina meet Yasuo - Engsub"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:textSize="16dp"/>
+        android:textSize="15dp"/>
 
 </RelativeLayout>
