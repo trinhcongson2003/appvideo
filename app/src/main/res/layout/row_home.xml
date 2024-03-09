@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <ImageView
+        android:id="@+id/vidThumbnail"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:id="@+id/video"/>
-    <TextView
-        android:layout_marginTop="270dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mix - Không Calo (TVT Remix)"
-        android:textColor="@color/black"/>
+        android:src="@drawable/rank1kata"
+        android:scaleType="centerCrop"/>
 
     <TextView
-        android:layout_marginTop="288dp"
+        android:id="@+id/vidTongTG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/vidThumbnail"
+        android:layout_alignBottom="@id/vidThumbnail"
+        android:background="@color/black"
+        android:padding="5dp"
+        android:text="00:00"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/vidName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tina Ho, Tăng Duy Tân, ZIN Media, and more"
-        android:textColor="@color/black"/>
+        android:layout_below="@id/vidThumbnail"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="When Rank 1 Katarina meet Yasuo - Engsub"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="1611dp"/>
+
 </RelativeLayout>
