@@ -71,7 +71,8 @@ public class PlayVideoActivity extends AppCompatActivity {
         main.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                maxSec=main.video.getDuration()/1000;
+                int duration=main.video.getDuration();
+                maxSec=duration/1000+1;
                 main.seekBarVideo.setMax(maxSec);
                 main.tongThoiGian.setText(TimeLine(maxSec));
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
@@ -80,6 +81,7 @@ public class PlayVideoActivity extends AppCompatActivity {
                     public void onCompletion(MediaPlayer mp) {
                         SetAnimation();
                         videoPlay=false;
+                        currSec=0;
                         main.thoiGianHienTai.setText(TimeLine(maxSec));
                         main.layoutChucNang.setVisibility(View.VISIBLE);
                         main.pausePlay.setBackgroundResource(R.drawable.ic_refresh);
@@ -119,11 +121,9 @@ public class PlayVideoActivity extends AppCompatActivity {
                 //click vao ben phai
                 if(xEvent>=xPoin/2){
                     Next10s();
-                    Toast.makeText(PlayVideoActivity.this, "Phai", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Prev10s();
-                    Toast.makeText(PlayVideoActivity.this, "Trai", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
@@ -255,7 +255,7 @@ public class PlayVideoActivity extends AppCompatActivity {
     }
     private void Next10s(){
         currSec+=10;
-        if(currSec>maxSec){
+        if(currSec>=maxSec){
             currSec=maxSec;
             main.video.seekTo(currSec*1000);
         }
@@ -276,12 +276,11 @@ public class PlayVideoActivity extends AppCompatActivity {
         else {
             if(currSec==maxSec){
                 main.video.seekTo(0);
-                currSec=0;
                 main.layoutChucNang.setVisibility(View.GONE);
             }
-            SetAnimation();
             main.video.start();
             videoPlay=true;
+            SetAnimation();
         }
     }
     private void SetAnimationPause_Play(){
