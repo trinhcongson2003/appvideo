@@ -9,11 +9,18 @@
         <RelativeLayout
             android:id="@+id/layoutXemVideo"
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="250dp">
+            <View
+                android:id="@+id/viewVideo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black"/>
             <VideoView
                 android:id="@+id/video"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
             <RelativeLayout
                 android:id="@+id/layoutChucNang"
                 android:layout_width="match_parent"
@@ -55,6 +62,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#fff"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
                         android:text="/"/>
                     <TextView
                         android:id="@+id/tongThoiGian"
@@ -72,7 +81,7 @@
                     android:progressTint="#ff030f"
                     android:thumbTint="#ff030f"
                     android:progress="0"
-                    android:max="100"
+                    android:max="1000"
                     android:layout_marginStart="0dp"
                     android:layout_marginBottom="-5dp" />
                 <ImageButton
