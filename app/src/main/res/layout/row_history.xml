@@ -12,7 +12,7 @@
         android:layout_width="160dp"
         android:layout_height="90dp"
         android:scaleType="centerCrop"
-        android:src=""
+        android:src="@drawable/longlongman"
         android:background="@drawable/round_outline"
         android:clipToOutline="true"/>
     <TextView
