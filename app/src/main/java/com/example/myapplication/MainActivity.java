@@ -45,13 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         listHomeVideo = new ArrayList<Video>();
         listHistoryVideo = new ArrayList<Video>();
 
-        //Database
-//        database = new Database(getActivity(), "VideoPlayer.sql", null, 1);
-        //Tạo bảng video
-//        database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
-//        database.QueryData("DROP  TABLE IF EXISTS Video");
-        database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
-        //Chèn CSDL vào bảng Video
         database.QueryData("INSERT INTO Video VALUES(null,'Season 2019: A New Journey | League of Legends','"+MainActivity.videoPath+R.raw.leagueoflegend+"','@drawable/leagueoflegend','0','60000','0')");
         database.QueryData("INSERT INTO Video VALUES(null,'Japanese Attack On Titan Live Action Subaru Advert / スバルフォレスターの広告「進撃の巨人」ENGLISH SUBBED','"+MainActivity.videoPath+R.raw.attackontitan+"','@drawable/attackontitan','0','30000','0')");
         database.QueryData("INSERT INTO Video VALUES(null,'Thăm ngàn - kệp ngần','"+MainActivity.videoPath+R.raw.thamngan+"','@drawable/thamngan','0','37000','0')");
@@ -67,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database.QueryData("INSERT INTO Video VALUES(null,'Quảng cáo Kẹo cao su Thái Lan','"+MainActivity.videoPath+R.raw.keocaosu+"','@drawable/keocaosu','0','67000','0')");
         //
 
-        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drlayout = findViewById(R.id.layoutdr);
@@ -97,12 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         frgmanager = getSupportFragmentManager();
         openFragment(new HomeFragment());
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"Thêm Video",Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

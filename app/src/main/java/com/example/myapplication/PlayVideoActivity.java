@@ -3,7 +3,9 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.media.AsyncPlayer;
@@ -45,6 +47,9 @@ public class PlayVideoActivity extends AppCompatActivity {
         main=ActivityPlayVideoBinding.inflate(getLayoutInflater());
         setContentView(main.getRoot());
 
+//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("AppSetting", Context.MODE_PRIVATE);
+//        UocTinhChiTieu=sharedPreferences.getLong("uoctinhchitieu",0);
+//        UocTinhThuNhap=sharedPreferences.getLong("uoctinhthunhap",0);
         MainActivity.listVideoPlay.add(videodata);
         if(MainActivity.listVideoPlay.indexOf(videodata)<=0){
             main.videoPrev.setEnabled(false);
@@ -216,7 +221,7 @@ public class PlayVideoActivity extends AppCompatActivity {
                 SetAnimationPause_Play();
             }
         });
-        main.videoXemTruoc.setVideoPath(MainActivity.videoPath+R.raw.vd1);
+        main.videoXemTruoc.setVideoPath(MainActivity.videoPath+R.raw.adidas);
         main.seekBarVideo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
