@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     FloatingActionButton fab;
     public static String videoPath = "android.resource://com.example.myapplication/";
-    public static ArrayList<Video> listVideoPlay, listHomeVideo;
+    public static ArrayList<Video> listVideoPlay, listHomeVideo, listHistoryVideo;
     public static Database database;
 
 
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database = new Database(getApplicationContext(), "VideoPlayer.sql", null, 1);
         listVideoPlay=new ArrayList<Video>();
         listHomeVideo = new ArrayList<Video>();
+        listHistoryVideo = new ArrayList<Video>();
 
         //Database
 //        database = new Database(getActivity(), "VideoPlayer.sql", null, 1);

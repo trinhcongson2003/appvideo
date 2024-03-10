@@ -65,12 +65,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(position==0) {
-            Toast.makeText(getActivity(),"Katarina",Toast.LENGTH_SHORT).show();
-        }
-        if(position==1) {
-            Toast.makeText(getActivity(),"Qiyana",Toast.LENGTH_SHORT).show();
-        }
+
     }
 }
 
