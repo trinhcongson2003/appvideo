@@ -216,7 +216,7 @@ public class PlayVideoActivity extends AppCompatActivity {
                 SetAnimationPause_Play();
             }
         });
-        main.videoXemTruoc.setVideoPath(MainActivity.videoPath+R.raw.vd1);
+        main.videoXemTruoc.setVideoPath(videodata.getVDURL());
         main.seekBarVideo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
