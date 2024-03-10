@@ -5,19 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:configChanges="orientation|screenSize"
     tools:context=".PlayVideoActivity">
         <RelativeLayout
             android:id="@+id/layoutXemVideo"
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="250dp">
             <View
+                android:id="@+id/viewVideo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/black"/>
             <VideoView
                 android:id="@+id/video"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
             <RelativeLayout
                 android:id="@+id/layoutChucNang"
                 android:layout_width="match_parent"
