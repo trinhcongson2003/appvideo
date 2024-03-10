@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".YouFragment"
-    android:layout_marginTop="66dp">
+    android:layout_marginTop="-10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"

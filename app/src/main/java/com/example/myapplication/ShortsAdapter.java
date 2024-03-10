@@ -44,6 +44,9 @@ public class ShortsAdapter extends RecyclerView.Adapter<ShortsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int randomPosition = randomPositions.get(position);
+        DataHander dataHander = dthandel.get(randomPosition);
+        holder.tiltle1.setText(dataHander.tiltle);
+        holder.tiltle2.setText(dataHander.tiltle);
         holder.vdv.setVideoURI(Uri.parse(dthandel.get(randomPosition).url));
         holder.vdv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
