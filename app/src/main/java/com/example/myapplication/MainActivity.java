@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database.QueryData("INSERT INTO Video VALUES(null,'Quảng cáo Kẹo cao su Thái Lan','"+MainActivity.videoPath+R.raw.keocaosu+"','@drawable/keocaosu','0','67000','0')");
         //
 
-        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drlayout = findViewById(R.id.layoutdr);
@@ -97,12 +96,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         frgmanager = getSupportFragmentManager();
         openFragment(new HomeFragment());
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"Thêm Video",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
