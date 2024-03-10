@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     BottomNavigationView btngview;
     FragmentManager frgmanager;
     Toolbar toolbar;
-    FloatingActionButton fab;
     public static String videoPath = "android.resource://com.example.myapplication/";
     public static ArrayList<Integer> listVideoPlay;
     public static Database database;
@@ -42,10 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         database = new Database(getApplicationContext(), "VideoPlayer.sql", null, 1);
-
-
         listVideoPlay=new ArrayList<Integer>();
-        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drlayout = findViewById(R.id.layoutdr);
@@ -75,12 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         frgmanager = getSupportFragmentManager();
         openFragment(new HomeFragment());
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"Thêm Video",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
