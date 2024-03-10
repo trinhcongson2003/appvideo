@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener {
+//    Database database;
     ArrayList<Video> arrayVideo;
     HomeAdapter homeAdapter;
     View view;
@@ -40,10 +41,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         super.onViewCreated(view, savedInstanceState);
         arrayVideo = new ArrayList<>();
         homeAdapter = new HomeAdapter(getContext(),R.layout.row_home, arrayVideo);
-        //MainActivity.database
+        //Database
+//        database = new Database(getActivity(), "VideoPlayer.sql", null, 1);
         //Tạo bảng video
+//        database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
+//        database.QueryData("DROP  TABLE IF EXISTS Video");
         MainActivity.database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
-//        MainActivity.database.QueryData("DROP  TABLE IF EXISTS Video");
         //Chèn CSDL vào bảng Video
         MainActivity.database.QueryData("INSERT INTO Video VALUES(null,'Rank 1 Kata : STOMRING KR Challenger - Engsub','R.raw.vd1','@drawable/katadeath','0','612000','0')");
         MainActivity.database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng Talon is Pretty Good - Engsub','R.raw.vd1','@drawable/beifeng2','0','642000','0')");

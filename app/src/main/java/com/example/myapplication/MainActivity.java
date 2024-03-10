@@ -24,7 +24,6 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     DrawerLayout drlayout;
     BottomNavigationView btngview;
     FragmentManager frgmanager;
@@ -42,9 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         database = new Database(getApplicationContext(), "VideoPlayer.sql", null, 1);
-
-
         listVideoPlay=new ArrayList<Video>();
+
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
