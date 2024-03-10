@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+    android:paddingBottom="10dp">
 
+    <ImageView
+        android:id="@+id/vidImgH"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/katadeath"
+        android:background="@drawable/round_outline"
+        android:clipToOutline="true"/>
     <TextView
-        android:textColor="@color/black"
-        android:id="@+id/additionalTextView"
+        android:id="@+id/vidTongTGH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cocacola 4k HDR 120FPS DOLBY VISION END TASK"
-        android:layout_marginLeft="16dp"/>
-</LinearLayout>
+        android:layout_alignEnd="@id/vidImgH"
+        android:layout_alignBottom="@id/vidImgH"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/video_time"
+        android:clipToOutline="true"
+        android:padding="3dp"
+        android:text="00:00"
+        android:textSize="11dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/vidNameH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/vidImgH"
+        android:text="Rank 1 Kata : STOMRING KR Challenger - Engsub"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        />
+</RelativeLayout>

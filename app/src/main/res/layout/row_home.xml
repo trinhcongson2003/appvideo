@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/vidThumbnail"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:src="@drawable/rank1kata"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/rank1kata" />
 
     <TextView
         android:id="@+id/vidTongTG"
@@ -17,7 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@id/vidThumbnail"
         android:layout_alignBottom="@id/vidThumbnail"
-        android:background="@color/black"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/video_time"
         android:padding="5dp"
         android:text="00:00"
         android:textSize="13dp"
