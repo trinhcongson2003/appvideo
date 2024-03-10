@@ -21,6 +21,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"/>
+            <View
+                android:id="@+id/animationPrev"
+                android:visibility="gone"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="35dp"
+                android:background="@drawable/ic_animation_priv"/>
+            <View
+                android:id="@+id/animationNext"
+                android:visibility="gone"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="35dp"
+                android:layout_toStartOf="@id/videoNext"
+                android:background="@drawable/ic_animation_skip"/>
             <RelativeLayout
                 android:id="@+id/layoutChucNang"
                 android:layout_width="match_parent"
@@ -33,7 +51,10 @@
                         android:id="@+id/videoPrev"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
                         android:background="@drawable/ic_prev"/>
+
                     <ImageButton
                         android:id="@+id/pause_play"
                         android:layout_width="wrap_content"
@@ -44,6 +65,8 @@
                         android:id="@+id/videoNext"
                         android:layout_width="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_next"/>
                 </RelativeLayout>
@@ -72,6 +95,12 @@
                         android:textColor="#fff"
                         android:text="60:00"/>
                 </LinearLayout>
+                <VideoView
+                    android:id="@+id/videoXemTruoc"
+                    android:visibility="gone"
+                    android:layout_width="100dp"
+                    android:layout_height="66dp"
+                    android:layout_above="@+id/seekBarVideo"/>
                 <SeekBar
                     android:id="@+id/seekBarVideo"
                     android:layout_width="match_parent"

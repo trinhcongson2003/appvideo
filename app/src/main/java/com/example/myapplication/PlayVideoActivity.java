@@ -121,9 +121,50 @@ public class PlayVideoActivity extends AppCompatActivity {
                 //click vao ben phai
                 if(xEvent>=xPoin/2){
                     Next10s();
+                    //animation
+                    main.animationNext.setVisibility(View.VISIBLE);
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            main.animationNext.setVisibility(View.GONE);
+                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    main.animationNext.setVisibility(View.VISIBLE);
+                                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            main.animationNext.setVisibility(View.GONE);
+                                        }
+                                    },200);
+                                }
+                            },200);
+                        }
+                    },200);
                 }
                 else {
                     Prev10s();
+                    //animation
+                    main.animationPrev.setVisibility(View.VISIBLE);
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            main.animationPrev.setVisibility(View.GONE);
+                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    main.animationPrev.setVisibility(View.VISIBLE);
+                                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            main.animationPrev.setVisibility(View.GONE);
+                                        }
+                                    },200);
+                                }
+                            },200);
+                        }
+                    },200);
+
                 }
                 return true;
             }
@@ -166,21 +207,25 @@ public class PlayVideoActivity extends AppCompatActivity {
                 SetAnimationPause_Play();
             }
         });
+        main.videoXemTruoc.setVideoPath(MainActivity.videoPath+R.raw.vd1);
         main.seekBarVideo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 main.thoiGianHienTai.setText(TimeLine(progress));
+                main.videoXemTruoc.seekTo(progress*1000);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 layout.removeCallbacksAndMessages(null);
+                main.videoXemTruoc.setVisibility(View.VISIBLE);
                 main.layoutChucNang.setVisibility(View.VISIBLE);
                 handler.removeCallbacks(runnable);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                main.videoXemTruoc.setVisibility(View.GONE);
                 SeekTo(seekBar.getProgress());
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
@@ -189,6 +234,20 @@ public class PlayVideoActivity extends AppCompatActivity {
                     }
                 },1000);
                 handler.post(runnable);
+            }
+        });
+        main.seekBarVideo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    // Lấy tọa độ x, y của thumb trong SeekBar
+                    float x = event.getX();
+                    float tmpX=x-main.videoXemTruoc.getWidth()/2;
+                    float pX= tmpX < 0? 0 :tmpX;
+
+                    main.videoXemTruoc.setX(pX);
+                }
+                return false;
             }
         });
         main.thuPhong.setOnClickListener(new View.OnClickListener() {
