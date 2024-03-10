@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AsyncPlayer;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.myapplication.databinding.ActivityPlayVideoBinding;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class PlayVideoActivity extends AppCompatActivity {
     ActivityPlayVideoBinding main;
@@ -48,8 +50,6 @@ public class PlayVideoActivity extends AppCompatActivity {
                 handler.postDelayed(runnable,200);
             }
         };
-        handler.post(runnable);
-
         arrayList = new ArrayList<>();
         adapter = new HomeAdapter(getApplicationContext(),R.layout.row_home, arrayList);
         main.listView.setAdapter(adapter);
@@ -62,12 +62,14 @@ public class PlayVideoActivity extends AppCompatActivity {
             public void onPrepared(MediaPlayer mp) {
                 main.tongThoiGian.setText(TimeLine(main.video.getDuration()));
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+                SetRunnerTime();
                 main.video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        SetAnimationPause_Play();
                         SetAnimation();
+                        main.thoiGianHienTai.setText(TimeLine(main.video.getDuration()));
                         main.layoutChucNang.setVisibility(View.VISIBLE);
+                        main.pausePlay.setBackgroundResource(R.drawable.ic_refresh);
                     }
                 });
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
@@ -75,46 +77,51 @@ public class PlayVideoActivity extends AppCompatActivity {
                     public void run() {
                         main.video.start();
                         main.layoutChucNang.setVisibility(View.GONE);
+                        SetRunnerTime();
                     }
                 },1000);
             }
         });
+        Handler layout=new Handler(Looper.getMainLooper());
+        Runnable runnable1=new Runnable() {
+            @Override
+            public void run() {
+                main.layoutChucNang.setVisibility(View.VISIBLE);
+                SetRunnerTime();
+                Runnable runnable2=new Runnable() {
+                    @Override
+                    public void run() {
+                        main.layoutChucNang.setVisibility(View.GONE);
+                        SetRunnerTime();
+                    }
+                };
+                layout.postDelayed(runnable2,2000);
 
+            }
+        };
         GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 float xEvent = e.getX();
                 float xPoin = main.video.getWidth();
-                Toast.makeText(PlayVideoActivity.this, ""+xPoin+"------"+xEvent, Toast.LENGTH_SHORT).show();
                 //click vao ben phai
                 if(xEvent>=xPoin/2){
                     Next10s();
-                    Toast.makeText(PlayVideoActivity.this, "Tua", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Prev10s();
-                    Toast.makeText(PlayVideoActivity.this, "Nguoc", Toast.LENGTH_SHORT).show();
                 }
-                SetAnimationPause_Play();
                 return true;
             }
         });
         main.video.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                main.layoutChucNang.setVisibility(View.VISIBLE);
-                main.thoiGianHienTai.setText(TimeLine(main.video.getCurrentPosition()));
-                SetSeekBar(main.video.getCurrentPosition());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        main.layoutChucNang.setVisibility(View.GONE);
-
-                    }
-                },2000);
+                layout.removeCallbacksAndMessages(null);
                 gestureDetector.onTouchEvent(event);
+                layout.postDelayed(runnable1,500);
                 return true;
-            }
+                }
         });
         if(main.videoPrev.isEnabled()){
             main.videoPrev.setOnClickListener(new View.OnClickListener() {
@@ -149,19 +156,37 @@ public class PlayVideoActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 main.thoiGianHienTai.setText(TimeLine((main.video.getDuration()/1000)*progress));
+                handler.removeCallbacksAndMessages(null);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                layout.removeCallbacksAndMessages(null);
+                main.layoutChucNang.setVisibility(View.VISIBLE);
+                SetRunnerTime();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 SeekTo(seekBar.getProgress());
-
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        main.layoutChucNang.setVisibility(View.GONE);
+                        SetRunnerTime();
+                    }
+                },1000);
+                handler.post(runnable);
             }
         });
+    }
+    private void  SetRunnerTime(){
+        if(main.layoutChucNang.getVisibility()==View.VISIBLE){
+            handler.post(runnable);
+        }
+        else {
+            handler.removeCallbacks(runnable);
+        }
     }
     private void SetAnimation(){
         main.thoiGianHienTai.setText(TimeLine(main.video.getCurrentPosition()));
@@ -184,7 +209,7 @@ public class PlayVideoActivity extends AppCompatActivity {
     private void Next10s(){
         int curr=main.video.getCurrentPosition()+10000;//tg hien tai cong 10s
         if(curr>main.video.getDuration()){
-            main.video.seekTo(main.video.getDuration());
+            main.video.seekTo(main.video.getDuration()-1);
         }
         else {
             main.video.seekTo(curr);
@@ -211,11 +236,12 @@ public class PlayVideoActivity extends AppCompatActivity {
             main.pausePlay.setBackgroundResource(R.drawable.ic_play);
         }
     }
-    private String  TimeLine(int s){
-        int timeLine=s/1000;
-        int giay=timeLine%60;
-        int phut=timeLine/60;
-        return String.format("%02d:%02d", phut, giay);
+    private String TimeLine(int s){
+        /*convert millis to appropriate time*/
+        return String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(s),
+                TimeUnit.MILLISECONDS.toSeconds(s) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(s)));
     }
     public void GetDataVideo(){
         try {
