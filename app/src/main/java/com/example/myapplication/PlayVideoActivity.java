@@ -115,13 +115,15 @@ public class PlayVideoActivity extends AppCompatActivity {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 float xEvent = e.getX();
-                float xPoin = main.video.getWidth();
+                float xPoin = main.viewVideo.getWidth();
                 //click vao ben phai
                 if(xEvent>=xPoin/2){
                     Next10s();
+                    Toast.makeText(PlayVideoActivity.this, "Phai", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Prev10s();
+                    Toast.makeText(PlayVideoActivity.this, "Trai", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
@@ -197,7 +199,19 @@ public class PlayVideoActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+        // Kiểm tra hướng xoay của màn hình
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            fullSceen=true;
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // Xử lý khi màn hình xoay dọc
+            fullSceen=false;
+        }
+        SetFullSceen();
+    }
 
 
     private void SetFullSceen(){
@@ -243,7 +257,7 @@ public class PlayVideoActivity extends AppCompatActivity {
         currSec+=10;
         if(currSec>maxSec){
             currSec=maxSec;
-            main.video.seekTo(currSec);
+            main.video.seekTo(currSec*1000);
         }
         else {
             main.video.seekTo(currSec*1000);
