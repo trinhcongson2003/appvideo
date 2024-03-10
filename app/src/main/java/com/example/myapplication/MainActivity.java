@@ -24,13 +24,13 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     DrawerLayout drlayout;
     BottomNavigationView btngview;
     FragmentManager frgmanager;
     Toolbar toolbar;
+    FloatingActionButton fab;
     public static String videoPath = "android.resource://com.example.myapplication/";
-    public static ArrayList<Integer> listVideoPlay;
+    public static ArrayList<Video> listVideoPlay, listHomeVideo, listHistoryVideo;
     public static Database database;
 
 
@@ -41,7 +41,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         database = new Database(getApplicationContext(), "VideoPlayer.sql", null, 1);
-        listVideoPlay=new ArrayList<Integer>();
+        listVideoPlay=new ArrayList<Video>();
+        listHomeVideo = new ArrayList<Video>();
+        listHistoryVideo = new ArrayList<Video>();
+
+        //Database
+//        database = new Database(getActivity(), "VideoPlayer.sql", null, 1);
+        //Tạo bảng video
+//        database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
+//        database.QueryData("DROP  TABLE IF EXISTS Video");
+        database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
+        //Chèn CSDL vào bảng Video
+        database.QueryData("INSERT INTO Video VALUES(null,'Rank 1 Kata : STOMRING KR Challenger - Engsub','R.raw.vd1','@drawable/katadeath','0','612000','0')");
+        database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng Talon is Pretty Good - Engsub','R.raw.vd1','@drawable/beifeng2','0','642000','0')");
+        database.QueryData("INSERT INTO Video VALUES(null,'YeDaoShen : INSANE 1HP SURVIVE','R.raw.vd1','@drawable/talonenduring','0','556000','0')");
+        database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng : Did You Know About This Qiyana ONE SHOT Combos ?','R.raw.vd1','@drawable/beifeng1','0','516000','0')");
+        database.QueryData("INSERT INTO Video VALUES(null,'When Rank 1 Katarina meet Yasuo - Engsub','R.raw.vd1','@drawable/rank1kata','0','593000','0')");
+        //
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drlayout = findViewById(R.id.layoutdr);
@@ -71,6 +88,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         frgmanager = getSupportFragmentManager();
         openFragment(new HomeFragment());
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"Thêm Video",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
