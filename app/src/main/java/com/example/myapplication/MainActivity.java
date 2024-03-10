@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     BottomNavigationView btngview;
     FragmentManager frgmanager;
     Toolbar toolbar;
+    FloatingActionButton fab;
     public static String videoPath = "android.resource://com.example.myapplication/";
     public static ArrayList<Video> listVideoPlay, listHomeVideo, listHistoryVideo;
     public static Database database;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         frgmanager = getSupportFragmentManager();
         openFragment(new HomeFragment());
+
 
     }
     @Override

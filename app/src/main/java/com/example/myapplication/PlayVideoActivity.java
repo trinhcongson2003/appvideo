@@ -45,7 +45,7 @@ public class PlayVideoActivity extends AppCompatActivity {
         setContentView(main.getRoot());
 
         MainActivity.listVideoPlay.add(videodata);
-        if(MainActivity.listVideoPlay.size()<=1){
+        if(MainActivity.listVideoPlay.indexOf(videodata)<=0){
             main.videoPrev.setEnabled(false);
             main.videoPrev.setBackgroundResource(R.drawable.ic_prev_off);
         }
@@ -183,9 +183,9 @@ public class PlayVideoActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(getApplicationContext(),PlayVideoActivity.class);
-                    PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(MainActivity.listVideoPlay.size()-2);//phat video truoc
-                    MainActivity.listVideoPlay.remove(MainActivity.listVideoPlay.size()-1);
-                    MainActivity.listVideoPlay.remove(MainActivity.listVideoPlay.size()-1);
+                    int index=MainActivity.listVideoPlay.indexOf(videodata);
+                    PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(index-1);//phat video truoc
+                    MainActivity.listVideoPlay.remove(index);
                     startActivity(intent);
                     finish();
                 }
@@ -195,7 +195,15 @@ public class PlayVideoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),PlayVideoActivity.class);
-                PlayVideoActivity.videodata=arrayList.get(0);//phat video dau tien trong list
+                int index=MainActivity.listVideoPlay.indexOf(videodata);
+                if(index>MainActivity.listVideoPlay.size()){
+                    PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(index+1);//phat video sau
+                    MainActivity.listVideoPlay.remove(index);
+
+                }
+                else {
+                    PlayVideoActivity.videodata=arrayList.get(0);//phat video sau
+                }
                 startActivity(intent);
                 finish();
             }
