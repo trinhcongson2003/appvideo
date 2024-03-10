@@ -56,7 +56,7 @@ public class PlayVideoActivity extends AppCompatActivity {
         GetDataVideo();
 
         main.nameVideo.setText(videodata.getTenVD());
-        main.video.setVideoPath(MainActivity.videoPath+R.raw.vd1);
+        main.video.setVideoPath(videodata.getVDURL());
         main.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {

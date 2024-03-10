@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/rank1kata" />
+        android:src="" />
 
     <TextView
         android:id="@+id/vidTongTG"
@@ -36,7 +36,7 @@
         android:layout_marginBottom="15dp"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:text="When Rank 1 Katarina meet Yasuo - Engsub"
+        android:text="Video Name"
         android:textStyle="bold"
         android:textColor="#000000"
         android:textSize="15dp"/>
