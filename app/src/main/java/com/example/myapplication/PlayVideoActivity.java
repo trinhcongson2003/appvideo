@@ -38,6 +38,7 @@ public class PlayVideoActivity extends AppCompatActivity {
     private boolean videoPlay;
     private int currSec=0;
     private boolean fullSceen=false;
+    private boolean ngang_doc=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class PlayVideoActivity extends AppCompatActivity {
         GetDataVideo();
 
         main.nameVideo.setText(videodata.getTenVD());
-        main.video.setVideoPath(MainActivity.videoPath+R.raw.vd1);
+        main.video.setVideoPath(videodata.getVDURL());
         main.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -273,12 +274,15 @@ public class PlayVideoActivity extends AppCompatActivity {
         // Kiểm tra hướng xoay của màn hình
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             fullSceen=true;
+            ngang_doc=true;
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // Xử lý khi màn hình xoay dọc
             fullSceen=false;
+            ngang_doc=false;
         }
-        SetFullSceen();
     }
+
+
 
 
     private void SetFullSceen(){
@@ -301,6 +305,7 @@ public class PlayVideoActivity extends AppCompatActivity {
             params.height = pixelValue;
             main.layoutXemVideo.setLayoutParams(params);
         }
+
     }
     private void SetAnimation(){
         SetAnimationPause_Play();

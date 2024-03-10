@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        database.QueryData("DROP  TABLE IF EXISTS Video");
         database.QueryData("CREATE TABLE IF NOT EXISTS Video(IdVD INTEGER PRIMARY KEY AUTOINCREMENT, TenVD VARCHAR(500), VDURL VARCHAR(300), Thumbnail VARCHAR(300), Timeline INTEGER, TongTG INTEGER, IdHistory INTEGER)");
         //Chèn CSDL vào bảng Video
-        database.QueryData("INSERT INTO Video VALUES(null,'Rank 1 Kata : STOMRING KR Challenger - Engsub','R.raw.vd1','@drawable/katadeath','0','612000','0')");
+        database.QueryData("INSERT INTO Video VALUES(null,'Rank 1 Kata : STOMRING KR Challenger - Engsub','"+MainActivity.videoPath+R.raw.vdcualuc1+"','@drawable/katadeath','0','612000','0')");
         database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng Talon is Pretty Good - Engsub','R.raw.vd1','@drawable/beifeng2','0','642000','0')");
         database.QueryData("INSERT INTO Video VALUES(null,'YeDaoShen : INSANE 1HP SURVIVE','R.raw.vd1','@drawable/talonenduring','0','556000','0')");
         database.QueryData("INSERT INTO Video VALUES(null,'BeiFeng : Did You Know About This Qiyana ONE SHOT Combos ?','R.raw.vd1','@drawable/beifeng1','0','516000','0')");
