@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database.QueryData("INSERT INTO Video VALUES(null,'When Rank 1 Katarina meet Yasuo - Engsub','R.raw.vd1','@drawable/rank1kata','0','593000','0')");
         //
 
-        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drlayout = findViewById(R.id.layoutdr);
