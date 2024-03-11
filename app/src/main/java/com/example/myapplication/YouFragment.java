@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +18,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class YouFragment extends Fragment implements AdapterView.OnItemClickListener {
     HistoryAdapter historyAdapter;
+    private SharedPreferences sharedPreferences;
+
 
     View view;
     ListView listView;
@@ -25,38 +36,35 @@ public class YouFragment extends Fragment implements AdapterView.OnItemClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences=getContext().getSharedPreferences("history", Context.MODE_PRIVATE);
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_you, container, false);
+       try {
+           historyAdapter = new HistoryAdapter(getContext(),R.layout.row_history, MainActivity.listHistoryVideo);
+           listView = (ListView) view.findViewById(R.id.listHistory);
+           listView.setAdapter(historyAdapter);
+           GetDataVideo();
+       }catch (Exception e){
+
+       }
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        historyAdapter = new HistoryAdapter(getContext(),R.layout.row_history, MainActivity.listHistoryVideo);
-
-        listView = (ListView) view.findViewById(R.id.listHistory);
-        listView.setAdapter(historyAdapter);
-        GetDataVideo();
     }
 
     public void GetDataVideo(){
-        MainActivity.listHistoryVideo.clear();
-        Cursor dataVideo = MainActivity.database.GetData("SELECT * FROM Video");
-        while (dataVideo.moveToNext()){
-            int id = dataVideo.getInt(0);
-            String ten = dataVideo.getString(1);
-            String url = dataVideo.getString(2);
-            String thumb = dataVideo.getString(3);
-            int idthumb = getResources().getIdentifier(thumb, null, getActivity().getPackageName());
-            int timeline = dataVideo.getInt(4);
-            int tongtg = dataVideo.getInt(5);
-            int history = dataVideo.getInt(6);
-            MainActivity.listHistoryVideo.add(new Video(id, ten, url, idthumb, timeline, tongtg, history  ));
-            historyAdapter.notifyDataSetChanged();
-        }
+        String dataString=sharedPreferences.getString("listHistory","");
+        Gson gson=new Gson();
+        Type type=new TypeToken<ArrayList<Video>>(){}.getType();
+        MainActivity.listHistoryVideo=gson.fromJson(dataString,type);
+        historyAdapter.notifyDataSetChanged();
+
     }
 
     @Override

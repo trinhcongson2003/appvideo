@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -25,12 +26,16 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.myapplication.databinding.ActivityPlayVideoBinding;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class PlayVideoActivity extends AppCompatActivity {
     ActivityPlayVideoBinding main;
+    private SharedPreferences sharedPreferences;
     private ArrayList<Video> arrayList;
     private HomeAdapter adapter;
     public static Video videodata;
@@ -40,20 +45,29 @@ public class PlayVideoActivity extends AppCompatActivity {
     private boolean videoPlay;
     private int currSec=0;
     private boolean fullSceen=false;
-    private boolean ngang_doc=false;
+    public static boolean home_history=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         main=ActivityPlayVideoBinding.inflate(getLayoutInflater());
         setContentView(main.getRoot());
 
-//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("AppSetting", Context.MODE_PRIVATE);
-//        UocTinhChiTieu=sharedPreferences.getLong("uoctinhchitieu",0);
-//        UocTinhThuNhap=sharedPreferences.getLong("uoctinhthunhap",0);
-        MainActivity.listVideoPlay.add(videodata);
-        if(MainActivity.listVideoPlay.indexOf(videodata)<=0){
-            main.videoPrev.setEnabled(false);
-            main.videoPrev.setBackgroundResource(R.drawable.ic_prev_off);
+        arrayList = new ArrayList<>();
+        adapter = new HomeAdapter(getApplicationContext(),R.layout.row_home, arrayList);
+        main.listView.setAdapter(adapter);
+        sharedPreferences=getApplicationContext().getSharedPreferences("history",MODE_PRIVATE);
+
+        if(home_history){
+            MainActivity.listVideoPlay.add(videodata);
+            if(MainActivity.listVideoPlay.indexOf(videodata)<=0){
+                main.videoPrev.setEnabled(false);
+                main.videoPrev.setBackgroundResource(R.drawable.ic_prev_off);
+            }
+        }else {
+            String dataString=sharedPreferences.getString("listHistory","");
+            Gson gson=new Gson();
+            Type type=new TypeToken<ArrayList<Video>>(){}.getType();
+            arrayList=gson.fromJson(dataString,type);
         }
 
         handler=new Handler(Looper.getMainLooper());
@@ -67,9 +81,6 @@ public class PlayVideoActivity extends AppCompatActivity {
                 handler.postDelayed(runnable,1000);
             }
         };
-        arrayList = new ArrayList<>();
-        adapter = new HomeAdapter(getApplicationContext(),R.layout.row_home, arrayList);
-        main.listView.setAdapter(adapter);
         GetDataVideo();
 
         main.nameVideo.setText(videodata.getTenVD());
@@ -79,9 +90,14 @@ public class PlayVideoActivity extends AppCompatActivity {
             public void onPrepared(MediaPlayer mp) {
                 int duration=main.video.getDuration();
                 maxSec=duration/1000+1;
+                if(home_history==false) {
+                    currSec=videodata.getTimeline();
+                    SetAnimation();
+                    main.video.seekTo(videodata.getTimeline() * 1000);
+                }
                 main.seekBarVideo.setMax(maxSec);
                 main.tongThoiGian.setText(TimeLine(maxSec));
-                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+
                 main.video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
@@ -124,11 +140,12 @@ public class PlayVideoActivity extends AppCompatActivity {
             public boolean onDoubleTap(MotionEvent e) {
                 float xEvent = e.getX();
                 float xPoin = main.viewVideo.getWidth();
+                layout.removeCallbacksAndMessages(runnable1);
+
                 //click vao ben phai
                 if(xEvent>=xPoin/2){
                     Next10s();
                     //animation
-                    main.animationNext.setVisibility(View.VISIBLE);
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -192,6 +209,7 @@ public class PlayVideoActivity extends AppCompatActivity {
                     int index=MainActivity.listVideoPlay.indexOf(videodata);
                     PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(index-1);//phat video truoc
                     MainActivity.listVideoPlay.remove(index);
+                    SaveVideoHistory();
                     startActivity(intent);
                     finish();
                 }
@@ -272,6 +290,8 @@ public class PlayVideoActivity extends AppCompatActivity {
             }
         });
     }
+//--------------------------------------------------------Ham-------------------------------------------
+
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -279,17 +299,43 @@ public class PlayVideoActivity extends AppCompatActivity {
         // Kiểm tra hướng xoay của màn hình
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             fullSceen=true;
-            ngang_doc=true;
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // Xử lý khi màn hình xoay dọc
             fullSceen=false;
-            ngang_doc=false;
         }
+        SetFullSceen();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+        SaveVideoHistory();
+    }
+    private void SaveVideoHistory(){
+        if(videodata!=null){
+            if(MainActivity.listHistoryVideo==null)
+                MainActivity.listHistoryVideo=new ArrayList<>();
+            int max=10;Video vdHistory =videodata;
+                if(MainActivity.listHistoryVideo.size()>=max){
+                    MainActivity.listHistoryVideo.remove(0);
 
-
-
+                }
+                for (int i = 0; i < MainActivity.listHistoryVideo.size(); i++) {
+                    if(MainActivity.listHistoryVideo.get(i).getIdVD()== vdHistory.getIdVD()){
+                        MainActivity.listHistoryVideo.remove(i);
+                        break;
+                    }
+        }
+        vdHistory.setTimeline(currSec);
+        MainActivity.listHistoryVideo.add(0,vdHistory);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            Gson gson=new Gson();
+            String gsonString=gson.toJson(MainActivity.listHistoryVideo);
+            editor.putString("listHistory",gsonString);
+            editor.apply();
+        }
+    }
     private void SetFullSceen(){
         if(fullSceen){
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -377,20 +423,32 @@ public class PlayVideoActivity extends AppCompatActivity {
     }
     public void GetDataVideo(){
         try {
-            arrayList.clear();
-            Cursor dataVideo = MainActivity.database.GetData("SELECT * FROM Video");
-            while (dataVideo.moveToNext()){
-                int id = dataVideo.getInt(0);
-                String ten = dataVideo.getString(1);
-                String url = dataVideo.getString(2);
-                String thumb = dataVideo.getString(3);
-                int idthumb = getResources().getIdentifier(thumb, null, getBaseContext().getPackageName());
-                int timeline = dataVideo.getInt(4);
-                int tongtg = dataVideo.getInt(5);
-                int history = dataVideo.getInt(6);
-                arrayList.add(new Video(id, ten, url, idthumb, timeline, tongtg, history  ));
-                adapter.notifyDataSetChanged();
+            if(home_history){
+                Cursor dataVideo = MainActivity.database.GetData("SELECT * FROM Video");
+                boolean check=true;
+                while (dataVideo.moveToNext()) {
+                    int id = dataVideo.getInt(0);
+                    String ten = dataVideo.getString(1);
+                    String url = dataVideo.getString(2);
+                    String thumb = dataVideo.getString(3);
+                    int idthumb = getResources().getIdentifier(thumb, null, getBaseContext().getPackageName());
+                    int timeline = dataVideo.getInt(4);
+                    int tongtg = dataVideo.getInt(5);
+                    int history = dataVideo.getInt(6);
+                    for (Video x :
+                            MainActivity.listVideoPlay) {
+                        if(x.getIdVD()==id){
+                            check=false;
+                        }
+                    }
+                    if(check){
+                        arrayList.add(new Video(id, ten, url, idthumb, timeline, tongtg, history));
+                    }
+                    check=true;
+
+                }
             }
+            adapter.notifyDataSetChanged();
         }catch (Exception e){
 
         }

@@ -63,6 +63,7 @@ public class HomeAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent=new Intent(context,PlayVideoActivity.class);
                 PlayVideoActivity.videodata=video;
+                PlayVideoActivity.home_history=true;
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );//Ket thuc Acvitivy cu va mo Activity moi
                 context.startActivity(intent);

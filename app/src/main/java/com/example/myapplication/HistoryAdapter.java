@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,7 +24,12 @@ public class HistoryAdapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return VideoList.size();
+        try{
+            int x= VideoList.size();
+            return x;
+        }catch (Exception e){
+            return  0;
+        }
     }
     @Override
     public Object getItem(int i) {
@@ -36,6 +42,7 @@ public class HistoryAdapter extends BaseAdapter{
     private class ViewHolder{
         TextView txtTongTG, txtTenVid;
         ImageView imgVid;
+        RelativeLayout layout;
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -47,6 +54,7 @@ public class HistoryAdapter extends BaseAdapter{
             holder.txtTongTG = view.findViewById(R.id.vidTongTGH);
             holder.txtTenVid = view.findViewById(R.id.vidNameH);
             holder.imgVid = view.findViewById(R.id.vidImgH);
+            holder.layout=view.findViewById(R.id.layoutHistory);
             view.setTag(holder);
         } else {
             holder = (HistoryAdapter.ViewHolder) view.getTag();
@@ -57,7 +65,17 @@ public class HistoryAdapter extends BaseAdapter{
         holder.txtTongTG.setText(duration);
         holder.txtTenVid.setText(video.getTenVD());
         holder.imgVid.setImageResource(video.getThumbnail());
-
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,PlayVideoActivity.class);
+                PlayVideoActivity.videodata=video;
+                PlayVideoActivity.home_history=false;
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );//Ket thuc Acvitivy cu va mo Activity moi
+                context.startActivity(intent);
+            }
+        });
         return view;
     }
 }
