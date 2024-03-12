@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -81,6 +82,7 @@ public class PlayVideoActivity extends AppCompatActivity {
             main.listView.setAdapter(historyAdapter);
             listHistory.addAll(videos);
             historyAdapter.notifyDataSetChanged();
+
         }
 
         Handler handler=new Handler(Looper.getMainLooper());
