@@ -16,11 +16,14 @@ import android.os.Looper;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -34,10 +37,12 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class PlayVideoActivity extends AppCompatActivity {
-    ActivityPlayVideoBinding main;
+    private ActivityPlayVideoBinding main;
     private SharedPreferences sharedPreferences;
     private ArrayList<Video> arrayList;
+    private ArrayList<Video> listHistory;
     private HomeAdapter adapter;
+    private HistoryAdapter historyAdapter;
     public static Video videodata;
     private Handler handler;
     private Runnable runnable;
@@ -52,25 +57,33 @@ public class PlayVideoActivity extends AppCompatActivity {
         main=ActivityPlayVideoBinding.inflate(getLayoutInflater());
         setContentView(main.getRoot());
 
-        arrayList = new ArrayList<>();
-        adapter = new HomeAdapter(getApplicationContext(),R.layout.row_home, arrayList);
-        main.listView.setAdapter(adapter);
         sharedPreferences=getApplicationContext().getSharedPreferences("history",MODE_PRIVATE);
 
         if(home_history){
+            arrayList = new ArrayList<>();
+            adapter = new HomeAdapter(getApplicationContext(),R.layout.row_home, arrayList);
+            main.listView.setAdapter(adapter);
             MainActivity.listVideoPlay.add(videodata);
             if(MainActivity.listVideoPlay.indexOf(videodata)<=0){
                 main.videoPrev.setEnabled(false);
                 main.videoPrev.setBackgroundResource(R.drawable.ic_prev_off);
             }
+            GetDataVideo();
         }else {
             String dataString=sharedPreferences.getString("listHistory","");
             Gson gson=new Gson();
+            main.title.setText("Lịch Sử");
             Type type=new TypeToken<ArrayList<Video>>(){}.getType();
-            arrayList=gson.fromJson(dataString,type);
+            ArrayList<Video> videos=new ArrayList<>();
+            videos=gson.fromJson(dataString,type);
+            listHistory=new ArrayList<>();
+            historyAdapter=new HistoryAdapter(getApplicationContext(),R.layout.row_history,listHistory);
+            main.listView.setAdapter(historyAdapter);
+            listHistory.addAll(videos);
+            historyAdapter.notifyDataSetChanged();
         }
 
-        handler=new Handler(Looper.getMainLooper());
+        Handler handler=new Handler(Looper.getMainLooper());
         runnable=new Runnable() {
             @Override
             public void run() {
@@ -81,7 +94,6 @@ public class PlayVideoActivity extends AppCompatActivity {
                 handler.postDelayed(runnable,1000);
             }
         };
-        GetDataVideo();
 
         main.nameVideo.setText(videodata.getTenVD());
         main.video.setVideoPath(videodata.getVDURL());
@@ -195,43 +207,84 @@ public class PlayVideoActivity extends AppCompatActivity {
         main.viewVideo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+//                float startY=0;
+//                if(event.getAction()==MotionEvent.ACTION_DOWN){
+//                    startY=event.getY();
+//                }
+//                else if(event.getAction()==MotionEvent.ACTION_UP){
+//                    if(startY < event.getY()-50){
+//                        ThuNhoCuaSo();
+//                    }
+//                }
                 layout.removeCallbacksAndMessages(null);
                 layout.postDelayed(runnable1,300);
                 gestureDetector.onTouchEvent(event);
                 return true;
                 }
         });
-        if(main.videoPrev.isEnabled()){
-            main.videoPrev.setOnClickListener(new View.OnClickListener() {
+        main.nameVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ThuNhoCuaSo();
+            }
+        });
+        if(home_history){
+            if(main.videoPrev.isEnabled()){
+                main.videoPrev.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(getApplicationContext(),PlayVideoActivity.class);
+                        int index=MainActivity.listVideoPlay.indexOf(videodata);
+                        PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(index-1);//phat video truoc
+                        MainActivity.listVideoPlay.remove(index);
+                        SaveVideoHistory();
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+            main.videoNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(getApplicationContext(),PlayVideoActivity.class);
                     int index=MainActivity.listVideoPlay.indexOf(videodata);
-                    PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(index-1);//phat video truoc
-                    MainActivity.listVideoPlay.remove(index);
-                    SaveVideoHistory();
+                    if(index>MainActivity.listVideoPlay.size()){
+                        PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(index+1);//phat video sau
+                        MainActivity.listVideoPlay.remove(index);
+
+                    }
+                    else {
+                        PlayVideoActivity.videodata=arrayList.get(0);//phat video sau
+                    }
                     startActivity(intent);
                     finish();
                 }
             });
         }
-        main.videoNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),PlayVideoActivity.class);
-                int index=MainActivity.listVideoPlay.indexOf(videodata);
-                if(index>MainActivity.listVideoPlay.size()){
-                    PlayVideoActivity.videodata=MainActivity.listVideoPlay.get(index+1);//phat video sau
-                    MainActivity.listVideoPlay.remove(index);
-
+        else {
+            main.videoNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        videodata=listHistory.get(listHistory.indexOf(videodata)+1);
+                    }catch (Exception e){
+                        videodata=listHistory.get(0);
+                    }
+                    main.video.setVideoPath(videodata.getVDURL());
                 }
-                else {
-                    PlayVideoActivity.videodata=arrayList.get(0);//phat video sau
+            });
+            main.videoNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        videodata=listHistory.get(listHistory.indexOf(videodata)+1);
+                    }catch (Exception e){
+                        videodata=listHistory.get(listHistory.size()-1);
+                    }
+                    main.video.setVideoPath(videodata.getVDURL());
                 }
-                startActivity(intent);
-                finish();
-            }
-        });
+            });
+        }
         main.pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,6 +324,7 @@ public class PlayVideoActivity extends AppCompatActivity {
         main.seekBarVideo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                layout.removeCallbacksAndMessages(null);
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     // Lấy tọa độ x, y của thumb trong SeekBar
                     float x = event.getX();
@@ -309,8 +363,17 @@ public class PlayVideoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
         SaveVideoHistory();
+    }
+    private void ThuNhoCuaSo(){
+//        WindowManager.LayoutParams params = getWindow().getAttributes();
+//
+//        // Đặt chiều rộng và chiều cao mong muốn (đơn vị là pixel)
+//        params.width = 400; // Chiều rộng
+//        params.height = 600; // Chiều cao
+//
+//        // Áp dụng thay đổi cho cửa sổ
+//        getWindow().setAttributes(params);
     }
     private void SaveVideoHistory(){
         if(videodata!=null){
@@ -423,7 +486,7 @@ public class PlayVideoActivity extends AppCompatActivity {
     }
     public void GetDataVideo(){
         try {
-            if(home_history){
+            arrayList.clear();
                 Cursor dataVideo = MainActivity.database.GetData("SELECT * FROM Video");
                 boolean check=true;
                 while (dataVideo.moveToNext()) {
@@ -447,7 +510,6 @@ public class PlayVideoActivity extends AppCompatActivity {
                     check=true;
 
                 }
-            }
             adapter.notifyDataSetChanged();
         }catch (Exception e){
 

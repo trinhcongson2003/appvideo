@@ -52,7 +52,7 @@ public class HomeAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         Video video = VideoList.get(i);
-        int d = video.getTongTG();
+        int d = video.getTongTG()+1000;
         String duration = String.format("%d:%d", TimeUnit.MILLISECONDS.toMinutes(d), TimeUnit.MILLISECONDS.toSeconds(d) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(d)));
         holder.txtTongTG.setText(duration);
         holder.txtTenVid.setText(video.getTenVD());

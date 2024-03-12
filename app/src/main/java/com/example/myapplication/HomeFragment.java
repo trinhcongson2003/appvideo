@@ -59,8 +59,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
             int tongtg = dataVideo.getInt(5);
             int history = dataVideo.getInt(6);
             MainActivity.listHomeVideo.add(new Video(id, ten, url, idthumb, timeline, tongtg, history  ));
-            homeAdapter.notifyDataSetChanged();
         }
+        homeAdapter.notifyDataSetChanged();
     }
 
     @Override

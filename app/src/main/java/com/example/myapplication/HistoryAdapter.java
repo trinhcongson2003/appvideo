@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class HistoryAdapter extends BaseAdapter{
         TextView txtTongTG, txtTenVid;
         ImageView imgVid;
         RelativeLayout layout;
+        SeekBar seekBar;
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -55,6 +57,7 @@ public class HistoryAdapter extends BaseAdapter{
             holder.txtTenVid = view.findViewById(R.id.vidNameH);
             holder.imgVid = view.findViewById(R.id.vidImgH);
             holder.layout=view.findViewById(R.id.layoutHistory);
+            holder.seekBar=view.findViewById(R.id.seekBar);
             view.setTag(holder);
         } else {
             holder = (HistoryAdapter.ViewHolder) view.getTag();
@@ -76,6 +79,8 @@ public class HistoryAdapter extends BaseAdapter{
                 context.startActivity(intent);
             }
         });
+        holder.seekBar.setMax(video.getTongTG()/1000+1);
+        holder.seekBar.setProgress(video.getTimeline());
         return view;
     }
 }

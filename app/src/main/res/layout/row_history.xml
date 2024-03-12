@@ -10,18 +10,32 @@
     android:paddingLeft="5dp"
     android:paddingBottom="10dp">
 
-    <ImageView
-        android:id="@+id/vidImgH"
+    <RelativeLayout
+        android:id="@+id/layoutVideo"
         android:layout_width="160dp"
-        android:layout_height="90dp"
-        android:background="@drawable/round_outline"
-        android:clipToOutline="true"/>
+        android:layout_height="90dp">
+        <ImageView
+            android:id="@+id/vidImgH"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:background="@drawable/round_outline"
+            android:clipToOutline="true"/>
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-15dp"
+            android:layout_marginBottom="-5dp"
+            android:progressTint="#ff030f"
+            android:thumbTint="#ff030f"/>
+    </RelativeLayout>
     <TextView
         android:id="@+id/vidTongTGH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/vidImgH"
-        android:layout_alignBottom="@id/vidImgH"
+        android:layout_alignEnd="@id/layoutVideo"
+        android:layout_alignBottom="@id/layoutVideo"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/video_time"
@@ -37,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/vidImgH"
+        android:layout_toRightOf="@+id/layoutVideo"
         android:text="Video Name"
         android:textColor="@color/black"
         android:textSize="13dp"
